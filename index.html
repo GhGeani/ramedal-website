@@ -13,19 +13,23 @@
   <meta property="og:description" content="Camere duble, triple și apartamente în Calafat. WiFi gratuit, parcare, aer condiționat. Rezervă direct sau pe Booking.com!" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ramedal.clft.ro" />
-  <meta property="og:image" content="images/hero.webp" />
+  <meta property="og:image" content="https://ramedal.clft.ro/images/og-cover.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="ro_RO" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Pensiunea Ramedal Calafat – Cazare Modernă | Rating 9.0" />
   <meta name="twitter:description" content="Camere duble, triple și apartamente în Calafat, aproape de Vama Calafat–Vidin. WiFi gratuit, parcare, aer condiționat. Rezervă acum!" />
-  <meta name="twitter:image" content="images/hero.webp" />
+  <meta name="twitter:image" content="https://ramedal.clft.ro/images/og-cover.jpg" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"LodgingBusiness","name":"Pensiunea Ramedal","description":"Pensiune modernă în Calafat cu camere duble, triple și apartamente. WiFi gratuit, parcare gratuită, aer condiționat.","url":"https://ramedal.clft.ro","telephone":"+40766712981","email":"contact@ramedal.ro","address":{"@type":"PostalAddress","streetAddress":"Strada Gheorghe Doja 9","addressLocality":"Calafat","addressRegion":"Dolj","postalCode":"205200","addressCountry":"RO"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"9.0","reviewCount":"24","bestRating":"10"},"checkinTime":"14:00","checkoutTime":"12:00"}</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preload" href="fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/playfair-700.woff2" as="font" type="font/woff2" crossorigin />
   <style>
+    @font-face{font-family:'Inter';font-style:normal;font-weight:300;font-display:swap;src:url('fonts/inter-300.woff2') format('woff2')}
+    @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/inter-400.woff2') format('woff2')}
+    @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/inter-500.woff2') format('woff2')}
+    @font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/inter-600.woff2') format('woff2')}
+    @font-face{font-family:'Playfair Display';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/playfair-700.woff2') format('woff2')}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{--teal:#2A6B6E;--teal-dark:#1D4E51;--teal-light:#E8F4F5;--gold:#C9A84C;--text:#1E2328;--text-soft:#5A6272;--bg:#FAFAF8;--white:#FFFFFF;--border:#E2DDD6;--radius:12px;--shadow:0 4px 24px rgba(0,0,0,.08);--shadow-lg:0 12px 48px rgba(0,0,0,.14)}
     html{scroll-behavior:smooth}
@@ -33,6 +37,7 @@
     h1,h2,h3{font-family:'Playfair Display',serif;line-height:1.25}
     a{color:inherit;text-decoration:none}
     img{display:block;width:100%;object-fit:cover}
+    picture{display:contents}
     /* NAVBAR */
     .navbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:70px;background:rgba(255,255,255,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:box-shadow .3s}
     .navbar.scrolled{box-shadow:var(--shadow)}
@@ -51,7 +56,8 @@
     .burger span{width:24px;height:2px;background:var(--text);border-radius:2px}
     /* HERO */
     .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
-    .hero-bg{position:absolute;inset:0;background-image:url('images/hero.webp');background-size:cover;background-position:center}
+    .hero-bg{position:absolute;inset:0}
+    .hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
     .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(15,40,42,.6) 0%,rgba(15,40,42,.78) 100%)}
     .hero-content{position:relative;z-index:2;text-align:center;color:#fff;max-width:820px;padding:0 1.5rem;animation:fadeUp .8s ease both}
     .hero-badges{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem}
@@ -230,7 +236,13 @@
 
 <!-- HERO -->
 <section class="hero" id="top">
-  <div class="hero-bg"></div>
+  <div class="hero-bg">
+    <picture>
+      <source type="image/avif" srcset="images/hero-960.avif 960w, images/hero-1440.avif 1440w, images/hero-1920.avif 1920w" sizes="100vw" />
+      <source type="image/webp" srcset="images/hero-960.webp 960w, images/hero-1440.webp 1440w, images/hero-1920.webp 1920w" sizes="100vw" />
+      <img src="images/hero-1440.webp" alt="Pensiunea Ramedal Calafat – cazare modernă în centrul orașului" width="1920" height="888" fetchpriority="high" decoding="async" />
+    </picture>
+  </div>
   <div class="hero-content">
     <div class="hero-badges">
       <span class="hero-badge">📍 Calafat, Dolj – Oltenia</span>
@@ -265,9 +277,21 @@
 <section class="about" id="despre">
   <div class="about-inner">
     <div class="about-images">
-      <div class="about-img-main"><img src="images/corridor.webp" alt="Holul Pensiunii Ramedal Calafat – cazare în centrul orașului" loading="lazy" /></div>
-      <div class="about-img-sub"><img src="images/room-double-green.webp" alt="Cameră dublă pensiune Calafat" loading="lazy" /></div>
-      <div class="about-img-sub"><img src="images/bathroom.webp" alt="Baie privată pensiune Calafat" loading="lazy" /></div>
+      <div class="about-img-main"><picture>
+        <source type="image/avif" srcset="images/corridor-480.avif 480w, images/corridor-800.avif 800w, images/corridor-1280.avif 1280w" sizes="(max-width:900px) 92vw, 560px" />
+        <source type="image/webp" srcset="images/corridor-480.webp 480w, images/corridor-800.webp 800w, images/corridor-1280.webp 1280w" sizes="(max-width:900px) 92vw, 560px" />
+        <img src="images/corridor-800.webp" alt="Holul Pensiunii Ramedal Calafat – cazare în centrul orașului" width="1280" height="960" loading="lazy" decoding="async" />
+      </picture></div>
+      <div class="about-img-sub"><picture>
+        <source type="image/avif" srcset="images/room-double-green-480.avif 480w, images/room-double-green-800.avif 800w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 270px" />
+        <source type="image/webp" srcset="images/room-double-green-480.webp 480w, images/room-double-green-800.webp 800w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 270px" />
+        <img src="images/room-double-green-480.webp" alt="Cameră dublă pensiune Calafat" width="1280" height="721" loading="lazy" decoding="async" />
+      </picture></div>
+      <div class="about-img-sub"><picture>
+        <source type="image/avif" srcset="images/bathroom-480.avif 480w, images/bathroom-800.avif 800w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 270px" />
+        <source type="image/webp" srcset="images/bathroom-480.webp 480w, images/bathroom-800.webp 800w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 270px" />
+        <img src="images/bathroom-480.webp" alt="Baie privată pensiune Calafat" width="1280" height="960" loading="lazy" decoding="async" />
+      </picture></div>
       <div class="about-badge"><strong>9.0★</strong><span data-i18n="badge_rating">Rating<br>Booking.com</span></div>
     </div>
     <div class="about-text">
@@ -306,7 +330,11 @@
 
     <article class="room-card">
       <div class="room-photo">
-        <img src="images/room-double-teal.webp" alt="Cameră dublă cazare Calafat – Pensiunea Ramedal" loading="lazy" />
+        <picture>
+          <source type="image/avif" srcset="images/room-double-teal-480.avif 480w, images/room-double-teal-800.avif 800w, images/room-double-teal-1280.avif 1280w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 380px" />
+          <source type="image/webp" srcset="images/room-double-teal-480.webp 480w, images/room-double-teal-800.webp 800w, images/room-double-teal-1280.webp 1280w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 380px" />
+          <img src="images/room-double-teal-800.webp" alt="Cameră dublă cazare Calafat – Pensiunea Ramedal" width="1280" height="960" loading="lazy" decoding="async" />
+        </picture>
         <span class="room-tag" data-i18n="r1_tag">Cameră Dublă</span>
       </div>
       <div class="room-body">
@@ -330,7 +358,11 @@
 
     <article class="room-card">
       <div class="room-photo">
-        <img src="images/room-double-green.webp" alt="Cameră dublă sau twin pensiune Calafat" loading="lazy" />
+        <picture>
+          <source type="image/avif" srcset="images/room-double-green-480.avif 480w, images/room-double-green-800.avif 800w, images/room-double-green-1280.avif 1280w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 380px" />
+          <source type="image/webp" srcset="images/room-double-green-480.webp 480w, images/room-double-green-800.webp 800w, images/room-double-green-1280.webp 1280w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 380px" />
+          <img src="images/room-double-green-800.webp" alt="Cameră dublă sau twin pensiune Calafat" width="1280" height="721" loading="lazy" decoding="async" />
+        </picture>
         <span class="room-tag" data-i18n="r2_tag">Dublă / Twin</span>
       </div>
       <div class="room-body">
@@ -353,7 +385,11 @@
 
     <article class="room-card">
       <div class="room-photo">
-        <img src="images/room-triple.webp" alt="Cameră triplă familie cazare Calafat" loading="lazy" />
+        <picture>
+          <source type="image/avif" srcset="images/room-triple-480.avif 480w, images/room-triple-800.avif 800w, images/room-triple-1280.avif 1280w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 380px" />
+          <source type="image/webp" srcset="images/room-triple-480.webp 480w, images/room-triple-800.webp 800w, images/room-triple-1280.webp 1280w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 380px" />
+          <img src="images/room-triple-800.webp" alt="Cameră triplă familie cazare Calafat" width="1280" height="960" loading="lazy" decoding="async" />
+        </picture>
         <span class="room-tag" data-i18n="r3_tag">Cameră Triplă</span>
       </div>
       <div class="room-body">
@@ -376,7 +412,11 @@
 
     <article class="room-card">
       <div class="room-photo">
-        <img src="images/room-attic.webp" alt="Cameră twin mansardă pensiune Calafat" loading="lazy" />
+        <picture>
+          <source type="image/avif" srcset="images/room-attic-480.avif 480w, images/room-attic-800.avif 800w, images/room-attic-1280.avif 1280w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 380px" />
+          <source type="image/webp" srcset="images/room-attic-480.webp 480w, images/room-attic-800.webp 800w, images/room-attic-1280.webp 1280w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 380px" />
+          <img src="images/room-attic-800.webp" alt="Cameră twin mansardă pensiune Calafat" width="1280" height="960" loading="lazy" decoding="async" />
+        </picture>
         <span class="room-tag" data-i18n="r4_tag">Twin Mansardă</span>
       </div>
       <div class="room-body">
@@ -398,7 +438,11 @@
 
     <article class="room-card">
       <div class="room-photo">
-        <img src="images/room-studio.webp" alt="Apartament parter cazare Calafat cu living" loading="lazy" />
+        <picture>
+          <source type="image/avif" srcset="images/room-studio-480.avif 480w, images/room-studio-800.avif 800w, images/room-studio-1280.avif 1280w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 380px" />
+          <source type="image/webp" srcset="images/room-studio-480.webp 480w, images/room-studio-800.webp 800w, images/room-studio-1280.webp 1280w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 380px" />
+          <img src="images/room-studio-800.webp" alt="Apartament parter cazare Calafat cu living" width="1280" height="960" loading="lazy" decoding="async" />
+        </picture>
         <span class="room-tag" data-i18n="r5_tag">Apartament</span>
       </div>
       <div class="room-body">
@@ -420,7 +464,11 @@
 
     <article class="room-card">
       <div class="room-photo">
-        <img src="images/room-attic-studio.webp" alt="Apartament 3 dormitoare grup familie Calafat" loading="lazy" />
+        <picture>
+          <source type="image/avif" srcset="images/room-attic-studio-480.avif 480w, images/room-attic-studio-800.avif 800w, images/room-attic-studio-1280.avif 1280w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 380px" />
+          <source type="image/webp" srcset="images/room-attic-studio-480.webp 480w, images/room-attic-studio-800.webp 800w, images/room-attic-studio-1280.webp 1280w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 380px" />
+          <img src="images/room-attic-studio-800.webp" alt="Apartament 3 dormitoare grup familie Calafat" width="1280" height="960" loading="lazy" decoding="async" />
+        </picture>
         <span class="room-tag" data-i18n="r6_tag">Apartament Mare</span>
       </div>
       <div class="room-body">
