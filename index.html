@@ -211,7 +211,7 @@
     .lb-figure{margin:0;max-width:1280px;width:100%;display:flex;flex-direction:column;align-items:center;gap:.9rem}
     .lb-stage{width:100%;display:flex;justify-content:center}
     .lb-stage picture{display:block}
-    .lb-stage img{display:block;max-width:100%;max-height:82vh;margin:0 auto;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5);object-fit:contain}
+    .lb-stage img{display:block;width:auto;height:auto;max-width:100%;max-height:82vh;margin:0 auto;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
     .lb-counter{color:rgba(255,255,255,.85);font-size:.85rem;letter-spacing:.05em}
     .lb-btn{position:absolute;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;width:48px;height:48px;border-radius:50%;font-size:1.5rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
     .lb-btn:hover{background:rgba(255,255,255,.28)}
@@ -993,33 +993,33 @@ const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersec
 document.querySelectorAll('.room-card,.facility,.review-stat').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition='opacity .5s ease,transform .5s ease';obs.observe(el)});
 
 // ── LIGHTBOX GALERIE ──
-// Each album: descriptive RO alt + [base, maxWidth] pairs (derivatives exist at 480/800/1280 up to maxWidth).
+// Each album: descriptive RO alt + [base, width, height] tuples (derivatives exist at 480/800/1280 up to width).
 const lbAlbums = {
-  double:{alt:'Cameră dublă — Pensiunea Ramedal Calafat',imgs:[['room-double-1',1280],['room-double-2',800],['room-double-3',1280],['room-double-4',1280],['room-double-5',480],['room-double-6',480]]},
-  twin:{alt:'Cameră twin cu două paturi single — Pensiunea Ramedal Calafat',imgs:[['room-twin-1',800],['room-twin-2',1280],['room-twin-3',480]]},
-  triple:{alt:'Cameră triplă pentru familii — Pensiunea Ramedal Calafat',imgs:[['room-triple-1',1280],['room-triple-2',1280],['room-triple-3',800],['room-triple-4',800],['room-triple-5',480],['room-triple-6',480]]},
-  apt2:{alt:'Apartament cu 2 camere — Pensiunea Ramedal Calafat',imgs:[['apt2-1',1280],['apt2-2',1280],['apt2-3',1280],['apt2-4',480],['apt2-5',480]]},
-  apt3:{alt:'Apartament cu 3 camere — Pensiunea Ramedal Calafat',imgs:[['apt3-1',800],['apt3-2',480],['apt3-3',800],['apt3-4',480],['apt3-5',480],['apt3-6',480]]},
-  exterior:{alt:'Exteriorul Pensiunii Ramedal Calafat',imgs:[['exterior-1',1280],['exterior-2',1280],['exterior-3',480],['exterior-4',480],['exterior-5',1280],['exterior-6',1280],['exterior-7',800],['exterior-8',480]]},
-  conference:{alt:'Sală de conferințe și evenimente — Pensiunea Ramedal Calafat',imgs:[['conference-1',480],['conference-2',480],['conference-3',480]]},
-  bathroom:{alt:'Baie privată modernă — Pensiunea Ramedal Calafat',imgs:[['bathroom-1',1280],['bathroom-2',1280],['bathroom-3',480]]},
-  laundry:{alt:'Spălătorie self-service — Pensiunea Ramedal Calafat',imgs:[['laundry-1',1280]]},
-  reception:{alt:'Recepția Pensiunii Ramedal Calafat',imgs:[['reception-1',1280],['reception-2',1280]]}
+  double:{alt:'Cameră dublă — Pensiunea Ramedal Calafat',imgs:[['room-double-1',1280,960],['room-double-2',800,450],['room-double-3',1280,1706],['room-double-4',1280,1706],['room-double-5',480,720],['room-double-6',480,640]]},
+  twin:{alt:'Cameră twin cu două paturi single — Pensiunea Ramedal Calafat',imgs:[['room-twin-1',800,600],['room-twin-2',1280,960],['room-twin-3',480,640]]},
+  triple:{alt:'Cameră triplă pentru familii — Pensiunea Ramedal Calafat',imgs:[['room-triple-1',1280,960],['room-triple-2',1280,960],['room-triple-3',800,533],['room-triple-4',800,533],['room-triple-5',480,720],['room-triple-6',480,640]]},
+  apt2:{alt:'Apartament cu 2 camere — Pensiunea Ramedal Calafat',imgs:[['apt2-1',1280,853],['apt2-2',1280,853],['apt2-3',1280,1920],['apt2-4',480,640],['apt2-5',480,853]]},
+  apt3:{alt:'Apartament cu 3 camere — Pensiunea Ramedal Calafat',imgs:[['apt3-1',800,600],['apt3-2',480,640],['apt3-3',800,600],['apt3-4',480,640],['apt3-5',480,640],['apt3-6',480,720]]},
+  exterior:{alt:'Exteriorul Pensiunii Ramedal Calafat',imgs:[['exterior-1',1280,1920],['exterior-2',1280,853],['exterior-3',480,720],['exterior-4',480,640],['exterior-5',1280,1920],['exterior-6',1280,1920],['exterior-7',800,450],['exterior-8',480,853]]},
+  conference:{alt:'Sală de conferințe și evenimente — Pensiunea Ramedal Calafat',imgs:[['conference-1',480,720],['conference-2',480,720],['conference-3',480,720]]},
+  bathroom:{alt:'Baie privată modernă — Pensiunea Ramedal Calafat',imgs:[['bathroom-1',1280,1706],['bathroom-2',1280,1706],['bathroom-3',480,853]]},
+  laundry:{alt:'Spălătorie self-service — Pensiunea Ramedal Calafat',imgs:[['laundry-1',1280,1706]]},
+  reception:{alt:'Recepția Pensiunii Ramedal Calafat',imgs:[['reception-1',1280,853],['reception-2',1280,853]]}
 };
 const lbEl=document.getElementById('lightbox');
 const lbStage=document.getElementById('lbStage');
 const lbCounter=document.getElementById('lbCounter');
 let lbCur=null, lbIdx=0, lbLastFocus=null;
-function lbSlide(base,mw,alt){
+function lbSlide(base,mw,mh,alt){
   const ws=[480]; if(mw>=800)ws.push(800); if(mw>=1280)ws.push(1280);
   const av=ws.map(w=>`images/${base}-${w}.avif ${w}w`).join(', ');
   const wp=ws.map(w=>`images/${base}-${w}.webp ${w}w`).join(', ');
-  return `<picture><source type="image/avif" srcset="${av}" sizes="92vw"><source type="image/webp" srcset="${wp}" sizes="92vw"><img src="images/${base}-${mw}.webp" alt="${alt}" decoding="async"></picture>`;
+  return `<picture><source type="image/avif" srcset="${av}" sizes="92vw"><source type="image/webp" srcset="${wp}" sizes="92vw"><img src="images/${base}-${mw}.webp" alt="${alt}" width="${mw}" height="${mh}" decoding="async"></picture>`;
 }
 function lbRender(){
   const a=lbAlbums[lbCur]; if(!a)return;
-  const [base,mw]=a.imgs[lbIdx];
-  lbStage.innerHTML=lbSlide(base,mw,a.alt);
+  const [base,mw,mh]=a.imgs[lbIdx];
+  lbStage.innerHTML=lbSlide(base,mw,mh,a.alt);
   lbCounter.textContent=`${lbIdx+1} / ${a.imgs.length}`;
   const multi=a.imgs.length>1;
   lbEl.querySelector('.lb-prev').style.display=multi?'flex':'none';
