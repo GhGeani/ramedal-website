@@ -995,14 +995,14 @@ document.querySelectorAll('.room-card,.facility,.review-stat').forEach(el=>{el.s
 // ── LIGHTBOX GALERIE ──
 // Each album: descriptive RO alt + [base, width, height] tuples (derivatives exist at 480/800/1280 up to width).
 const lbAlbums = {
-  double:{alt:'Cameră dublă — Pensiunea Ramedal Calafat',imgs:[['room-double-1',1280,960],['room-double-2',800,450],['room-double-3',1280,1706],['room-double-4',1280,1706],['room-double-5',480,720],['room-double-6',480,640]]},
-  twin:{alt:'Cameră twin cu două paturi single — Pensiunea Ramedal Calafat',imgs:[['room-twin-1',800,600],['room-twin-2',1280,960],['room-twin-3',480,640]]},
-  triple:{alt:'Cameră triplă pentru familii — Pensiunea Ramedal Calafat',imgs:[['room-triple-1',1280,960],['room-triple-2',1280,960],['room-triple-3',800,533],['room-triple-4',800,533],['room-triple-5',480,720],['room-triple-6',480,640]]},
-  apt2:{alt:'Apartament cu 2 camere — Pensiunea Ramedal Calafat',imgs:[['apt2-1',1280,853],['apt2-2',1280,853],['apt2-3',1280,1920],['apt2-4',480,640],['apt2-5',480,853]]},
-  apt3:{alt:'Apartament cu 3 camere — Pensiunea Ramedal Calafat',imgs:[['apt3-1',800,600],['apt3-2',480,640],['apt3-3',800,600],['apt3-4',480,640],['apt3-5',480,640],['apt3-6',480,720]]},
-  exterior:{alt:'Exteriorul Pensiunii Ramedal Calafat',imgs:[['exterior-1',1280,1920],['exterior-2',1280,853],['exterior-3',480,720],['exterior-4',480,640],['exterior-5',1280,1920],['exterior-6',1280,1920],['exterior-7',800,450],['exterior-8',480,853]]},
-  conference:{alt:'Sală de conferințe și evenimente — Pensiunea Ramedal Calafat',imgs:[['conference-1',480,720],['conference-2',480,720],['conference-3',480,720]]},
-  bathroom:{alt:'Baie privată modernă — Pensiunea Ramedal Calafat',imgs:[['bathroom-1',1280,1706],['bathroom-2',1280,1706],['bathroom-3',480,853]]},
+  double:{alt:'Cameră dublă — Pensiunea Ramedal Calafat',imgs:[['room-double-1',1280,960],['room-double-2',1182,665],['room-double-3',1280,1706],['room-double-4',1280,1706],['room-double-5',724,1086],['room-double-6',768,1024]]},
+  twin:{alt:'Cameră twin cu două paturi single — Pensiunea Ramedal Calafat',imgs:[['room-twin-1',1024,768],['room-twin-2',1280,960],['room-twin-3',768,1024]]},
+  triple:{alt:'Cameră triplă pentru familii — Pensiunea Ramedal Calafat',imgs:[['room-triple-1',1280,960],['room-triple-2',1280,960],['room-triple-3',1086,724],['room-triple-4',1086,724],['room-triple-5',724,1086],['room-triple-6',768,1024]]},
+  apt2:{alt:'Apartament cu 2 camere — Pensiunea Ramedal Calafat',imgs:[['apt2-1',1280,853],['apt2-2',1280,853],['apt2-3',1280,1920],['apt2-4',768,1024],['apt2-5',665,1182]]},
+  apt3:{alt:'Apartament cu 3 camere — Pensiunea Ramedal Calafat',imgs:[['apt3-1',1024,768],['apt3-2',768,1024],['apt3-3',1024,768],['apt3-4',768,1024],['apt3-5',768,1024],['apt3-6',724,1086]]},
+  exterior:{alt:'Exteriorul Pensiunii Ramedal Calafat',imgs:[['exterior-1',1280,1920],['exterior-2',1280,853],['exterior-3',724,1086],['exterior-4',768,1024],['exterior-5',1280,1920],['exterior-6',1280,1920],['exterior-7',1182,665],['exterior-8',665,1182]]},
+  conference:{alt:'Sală de conferințe și evenimente — Pensiunea Ramedal Calafat',imgs:[['conference-1',724,1086],['conference-2',724,1086],['conference-3',724,1086]]},
+  bathroom:{alt:'Baie privată modernă — Pensiunea Ramedal Calafat',imgs:[['bathroom-1',1280,1706],['bathroom-2',1280,1706],['bathroom-3',665,1182]]},
   laundry:{alt:'Spălătorie self-service — Pensiunea Ramedal Calafat',imgs:[['laundry-1',1280,1706]]},
   reception:{alt:'Recepția Pensiunii Ramedal Calafat',imgs:[['reception-1',1280,853],['reception-2',1280,853]]}
 };
@@ -1011,7 +1011,7 @@ const lbStage=document.getElementById('lbStage');
 const lbCounter=document.getElementById('lbCounter');
 let lbCur=null, lbIdx=0, lbLastFocus=null;
 function lbSlide(base,mw,mh,alt){
-  const ws=[480]; if(mw>=800)ws.push(800); if(mw>=1280)ws.push(1280);
+  const ws=[480]; if(mw>800)ws.push(800); if(mw>1280)ws.push(1280); if(!ws.includes(mw))ws.push(mw);
   const av=ws.map(w=>`images/${base}-${w}.avif ${w}w`).join(', ');
   const wp=ws.map(w=>`images/${base}-${w}.webp ${w}w`).join(', ');
   return `<picture><source type="image/avif" srcset="${av}" sizes="92vw"><source type="image/webp" srcset="${wp}" sizes="92vw"><img src="images/${base}-${mw}.webp" alt="${alt}" width="${mw}" height="${mh}" decoding="async"></picture>`;
