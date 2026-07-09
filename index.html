@@ -131,6 +131,17 @@
     .facility-icon{font-size:2rem;margin-bottom:.75rem}
     .facility h4{font-size:.95rem;font-weight:600;margin-bottom:.3rem;font-family:'Inter',sans-serif}
     .facility p{font-size:.8rem;color:var(--text-soft)}
+    /* EVENIMENTE */
+    .events{background:var(--teal-light);padding:5rem 5%}
+    .events-inner{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:center;max-width:1200px;margin:0 auto}
+    .events-media{position:relative;height:360px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lg);cursor:pointer}
+    .events-media img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+    .events-media:hover img{transform:scale(1.05)}
+    .events-media::after{content:'⤢';position:absolute;bottom:.8rem;right:.8rem;width:38px;height:38px;display:flex;align-items:center;justify-content:center;background:rgba(15,40,42,.62);color:#fff;border-radius:50%;opacity:0;transition:opacity .3s;z-index:2}
+    .events-media:hover::after,.events-media:focus-visible::after{opacity:1}
+    .events-badge{position:absolute;top:1rem;left:1rem;background:rgba(255,255,255,.93);color:var(--teal-dark);padding:.3rem .8rem;border-radius:50px;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;z-index:2}
+    .events-text p{color:var(--text-soft);font-size:.92rem;line-height:1.65;margin-bottom:1rem}
+    .events-text .btn-primary{display:inline-block;margin-top:.5rem}
     /* LOCATIE */
     .location{background:var(--bg);padding:5rem 5%}
     .location-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.5fr;gap:3.5rem;align-items:start}
@@ -207,7 +218,7 @@
       .mobile-menu{display:none;position:fixed;inset:70px 0 0 0;z-index:99;background:var(--white);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
       .mobile-menu.open{display:flex}
       .mobile-menu a{font-size:1.4rem;font-weight:600;color:var(--text)}
-      .about-inner,.location-inner,.contact-inner{grid-template-columns:1fr;gap:2.5rem}
+      .about-inner,.events-inner,.location-inner,.contact-inner{grid-template-columns:1fr;gap:2.5rem}
       .reviews-inner{gap:1.5rem}
       .platforms-grid{grid-template-columns:1fr}
     }
@@ -503,6 +514,29 @@
     <div class="facility"><div class="facility-icon">👨‍👩‍👧</div><h4 data-i18n="fac10_title">Camere de Familie</h4><p data-i18n="fac10_desc">Camere triple și apartamente potrivite pentru familii cu copii</p></div>
     <div class="facility"><div class="facility-icon">💳</div><h4 data-i18n="fac11_title">Plată Flexibilă</h4><p data-i18n="fac11_desc">Numerar, card bancar și transfer – RON, EUR sau USD</p></div>
     <div class="facility"><div class="facility-icon">🛂</div><h4 data-i18n="fac12_title">Aproape de Vamă</h4><p data-i18n="fac12_desc">Locație ideală pentru tranzit spre Vidin, Bulgaria — Podul Calafat–Vidin la câteva minute</p></div>
+    <div class="facility"><div class="facility-icon">🧺</div><h4 data-i18n="fac13_title">Spălătorie</h4><p data-i18n="fac13_desc">Spălătorie self-service cu mașină de spălat și uscător, disponibilă pentru oaspeți</p></div>
+  </div>
+</section>
+
+<!-- EVENIMENTE & BUSINESS -->
+<section class="events" id="evenimente">
+  <div class="events-inner">
+    <div class="events-media" data-lb-album="conference" tabindex="0" role="button" aria-label="Sală de conferințe și evenimente — vezi galeria">
+      <picture>
+        <source type="image/avif" srcset="images/conference-1-480.avif 480w" sizes="(max-width:900px) 92vw, 520px" />
+        <source type="image/webp" srcset="images/conference-1-480.webp 480w" sizes="(max-width:900px) 92vw, 520px" />
+        <img src="images/conference-1-480.webp" alt="Sală de conferințe și evenimente — Pensiunea Ramedal Calafat" width="480" height="720" loading="lazy" decoding="async" />
+      </picture>
+      <span class="events-badge" data-i18n="conf_badge">📸 Galerie</span>
+    </div>
+    <div class="events-text">
+      <span class="section-label" data-i18n="conf_label">Evenimente & Business</span>
+      <h2 class="section-title" data-i18n="conf_h2">Sală de Conferințe și Evenimente</h2>
+      <div class="divider"></div>
+      <p data-i18n="conf_p1">Pensiunea Ramedal pune la dispoziție o sală modernă, ideală pentru conferințe, întâlniri de afaceri, traininguri și evenimente private în Calafat. Spațiu luminos, mobilier flexibil și dotări complete.</p>
+      <p data-i18n="conf_p2">Organizăm evenimentul tău alături de cazare pentru participanți, într-o locație centrală și ușor accesibilă. Contactează-ne pentru disponibilitate și o ofertă personalizată.</p>
+      <a href="#contact" class="btn-primary" data-i18n="conf_cta">Cere ofertă</a>
+    </div>
   </div>
 </section>
 
@@ -659,6 +693,11 @@ const translations = {
     fac10_title:'Camere de Familie', fac10_desc:'Camere triple și apartamente potrivite pentru familii cu copii',
     fac11_title:'Plată Flexibilă', fac11_desc:'Numerar, card bancar și transfer – RON, EUR sau USD',
     fac12_title:'Aproape de Vamă', fac12_desc:'Locație ideală pentru tranzit spre Vidin, Bulgaria — Podul Calafat–Vidin la câteva minute',
+    conf_badge:'📸 Galerie', conf_label:'Evenimente & Business', conf_h2:'Sală de Conferințe și Evenimente',
+    conf_p1:'Pensiunea Ramedal pune la dispoziție o sală modernă, ideală pentru conferințe, întâlniri de afaceri, traininguri și evenimente private în Calafat. Spațiu luminos, mobilier flexibil și dotări complete.',
+    conf_p2:'Organizăm evenimentul tău alături de cazare pentru participanți, într-o locație centrală și ușor accesibilă. Contactează-ne pentru disponibilitate și o ofertă personalizată.',
+    conf_cta:'Cere ofertă',
+    fac13_title:'Spălătorie', fac13_desc:'Spălătorie self-service cu mașină de spălat și uscător, disponibilă pentru oaspeți',
     loc_label:'Unde ne găsești', loc_h2:'Locație și Acces',
     loc_desc:'Situați în centrul Calafatului, suntem cea mai convenabilă cazare pentru cei care tranzitează Vama Calafat–Vidin sau vizitează Bulgaria.',
     loc_name:'Pensiunea Ramedal Calafat', loc_maps_btn:'Deschide în Google Maps',
@@ -728,6 +767,11 @@ const translations = {
     fac10_title:'Family Rooms', fac10_desc:'Triple rooms and apartments suitable for families with children',
     fac11_title:'Flexible Payment', fac11_desc:'Cash, bank card and transfer – RON, EUR or USD',
     fac12_title:'Near the Border', fac12_desc:'Ideal location for transit to Vidin, Bulgaria — Calafat–Vidin Bridge just minutes away',
+    conf_badge:'📸 Gallery', conf_label:'Events & Business', conf_h2:'Conference & Events Hall',
+    conf_p1:'Pensiunea Ramedal offers a modern hall, ideal for conferences, business meetings, trainings and private events in Calafat. A bright space with flexible seating and complete facilities.',
+    conf_p2:'We host your event together with accommodation for attendees, in a central and easily accessible location. Contact us for availability and a tailored quote.',
+    conf_cta:'Request a quote',
+    fac13_title:'Laundry', fac13_desc:'Self-service laundry with washer and dryer, available for guests',
     loc_label:'Where to find us', loc_h2:'Location & Access',
     loc_desc:'Located in the centre of Calafat, we are the most convenient accommodation for those transiting Calafat–Vidin Customs or visiting Bulgaria.',
     loc_name:'Pensiunea Ramedal Calafat', loc_maps_btn:'Open in Google Maps',
