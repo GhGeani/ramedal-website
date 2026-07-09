@@ -179,6 +179,23 @@
     .fab-wa:hover{transform:scale(1.1)}
     .fab-wa svg{width:30px}
     .fab-pulse{position:absolute;inset:-4px;border-radius:50%;border:3px solid #25D366;opacity:0;animation:pulse 2.5s ease-out infinite}
+    /* LIGHTBOX */
+    [data-lb-album]{cursor:pointer}
+    [data-lb-album] .room-photo::after{content:'⤢';position:absolute;bottom:.7rem;right:.7rem;width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:rgba(15,40,42,.62);color:#fff;border-radius:50%;font-size:1rem;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2}
+    [data-lb-album]:hover .room-photo::after,[data-lb-album]:focus-visible .room-photo::after{opacity:1}
+    .lightbox{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(10,20,20,.93);backdrop-filter:blur(4px);padding:2rem 1rem}
+    .lightbox.open{display:flex}
+    .lb-figure{margin:0;max-width:1280px;width:100%;display:flex;flex-direction:column;align-items:center;gap:.9rem}
+    .lb-stage{width:100%;display:flex;justify-content:center}
+    .lb-stage picture{display:block}
+    .lb-stage img{display:block;max-width:100%;max-height:82vh;margin:0 auto;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5);object-fit:contain}
+    .lb-counter{color:rgba(255,255,255,.85);font-size:.85rem;letter-spacing:.05em}
+    .lb-btn{position:absolute;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;width:48px;height:48px;border-radius:50%;font-size:1.5rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+    .lb-btn:hover{background:rgba(255,255,255,.28)}
+    .lb-close{top:1.1rem;right:1.1rem;font-size:1.4rem}
+    .lb-prev{left:1.1rem;top:50%;transform:translateY(-50%)}
+    .lb-next{right:1.1rem;top:50%;transform:translateY(-50%)}
+    @media(max-width:600px){.lb-prev{left:.4rem}.lb-next{right:.4rem}.lb-btn{width:42px;height:42px}}
     /* ANIMATII */
     @keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
     @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
@@ -574,6 +591,17 @@
   <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
+<!-- LIGHTBOX GALERIE -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galerie foto Pensiunea Ramedal">
+  <button class="lb-btn lb-close" type="button" aria-label="Închide galeria" onclick="closeLightbox()">✕</button>
+  <button class="lb-btn lb-prev" type="button" aria-label="Imaginea anterioară" onclick="lbNav(-1)">‹</button>
+  <figure class="lb-figure">
+    <div class="lb-stage" id="lbStage"></div>
+    <figcaption class="lb-counter" id="lbCounter"></figcaption>
+  </figure>
+  <button class="lb-btn lb-next" type="button" aria-label="Imaginea următoare" onclick="lbNav(1)">›</button>
+</div>
+
 <script>
 // ── TRADUCERI ──
 const translations = {
@@ -616,6 +644,7 @@ const translations = {
     f_wifi:'📶 WiFi gratuit', f_toilet:'🧴 Toaletă gratuită', f_dryer:'💨 Uscător păr',
     f_family:'👨‍👩‍👧 Cameră familie', f_twin2:'🛏️ 2 paturi single', f_light:'🪟 Lumină naturală',
     f_living:'🛋️ Living separat', f_3bed:'🏠 3 camere', f_group:'👨‍👩‍👧‍👦 Grup/Familie',
+    lb_prev:'Imaginea anterioară', lb_next:'Imaginea următoare', lb_close:'Închide galeria',
     fac_label:'Ce oferim', fac_h2:'Facilități și Dotări',
     fac_sub:'Pensiunea Ramedal Calafat pune la dispoziția oaspeților toate facilitățile necesare pentru un sejur confortabil și plăcut — evaluate cu 8.9/10 pe Booking.com.',
     fac1_title:'Parcare Gratuită', fac1_desc:'Parcare stradală gratuită disponibilă pentru toți oaspeții',
@@ -684,6 +713,7 @@ const translations = {
     f_wifi:'📶 Free WiFi', f_toilet:'🧴 Free toiletries', f_dryer:'💨 Hairdryer',
     f_family:'👨‍👩‍👧 Family room', f_twin2:'🛏️ 2 single beds', f_light:'🪟 Natural light',
     f_living:'🛋️ Separate living room', f_3bed:'🏠 3 rooms', f_group:'👨‍👩‍👧‍👦 Group/Family',
+    lb_prev:'Previous image', lb_next:'Next image', lb_close:'Close gallery',
     fac_label:'What we offer', fac_h2:'Facilities & Amenities',
     fac_sub:'Pensiunea Ramedal Calafat provides guests with everything needed for a comfortable and pleasant stay — rated 8.9/10 on Booking.com.',
     fac1_title:'Free Parking', fac1_desc:'Free street parking available for all guests',
@@ -738,6 +768,13 @@ function applyLang(lang) {
   document.getElementById('langLabel').textContent = isEn ? 'RO' : 'EN';
   // Update html lang attribute
   document.getElementById('html-root').setAttribute('lang', lang);
+  // Update lightbox control labels (aria-label, not text content)
+  const lb = document.getElementById('lightbox');
+  if (lb) {
+    lb.querySelector('.lb-prev').setAttribute('aria-label', t.lb_prev);
+    lb.querySelector('.lb-next').setAttribute('aria-label', t.lb_next);
+    lb.querySelector('.lb-close').setAttribute('aria-label', t.lb_close);
+  }
   // Update WhatsApp link message
   const waMsg = lang === 'en'
     ? 'Hello%2C%20I%20would%20like%20to%20book%20at%20Pensiunea%20Ramedal.'
@@ -753,6 +790,82 @@ function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('op
 function closeMenu(){document.getElementById('mobileMenu').classList.remove('open')}
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:0.08});
 document.querySelectorAll('.room-card,.facility,.review-stat').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition='opacity .5s ease,transform .5s ease';obs.observe(el)});
+
+// ── LIGHTBOX GALERIE ──
+// Each album: descriptive RO alt + [base, maxWidth] pairs (derivatives exist at 480/800/1280 up to maxWidth).
+const lbAlbums = {
+  double:{alt:'Cameră dublă — Pensiunea Ramedal Calafat',imgs:[['room-double-1',1280],['room-double-2',800],['room-double-3',1280],['room-double-4',1280],['room-double-5',480],['room-double-6',480]]},
+  twin:{alt:'Cameră twin cu două paturi single — Pensiunea Ramedal Calafat',imgs:[['room-twin-1',800],['room-twin-2',1280],['room-twin-3',480]]},
+  triple:{alt:'Cameră triplă pentru familii — Pensiunea Ramedal Calafat',imgs:[['room-triple-1',1280],['room-triple-2',1280],['room-triple-3',800],['room-triple-4',800],['room-triple-5',480],['room-triple-6',480]]},
+  apt2:{alt:'Apartament cu 2 camere — Pensiunea Ramedal Calafat',imgs:[['apt2-1',1280],['apt2-2',1280],['apt2-3',1280],['apt2-4',480],['apt2-5',480]]},
+  apt3:{alt:'Apartament cu 3 camere — Pensiunea Ramedal Calafat',imgs:[['apt3-1',800],['apt3-2',480],['apt3-3',800],['apt3-4',480],['apt3-5',480],['apt3-6',480]]},
+  exterior:{alt:'Exteriorul Pensiunii Ramedal Calafat',imgs:[['exterior-1',1280],['exterior-2',1280],['exterior-3',480],['exterior-4',480],['exterior-5',1280],['exterior-6',1280],['exterior-7',800],['exterior-8',480]]},
+  conference:{alt:'Sală de conferințe și evenimente — Pensiunea Ramedal Calafat',imgs:[['conference-1',480],['conference-2',480],['conference-3',480]]},
+  bathroom:{alt:'Baie privată modernă — Pensiunea Ramedal Calafat',imgs:[['bathroom-1',1280],['bathroom-2',1280],['bathroom-3',480]]},
+  laundry:{alt:'Spălătorie self-service — Pensiunea Ramedal Calafat',imgs:[['laundry-1',1280]]},
+  reception:{alt:'Recepția Pensiunii Ramedal Calafat',imgs:[['reception-1',1280],['reception-2',1280]]}
+};
+const lbEl=document.getElementById('lightbox');
+const lbStage=document.getElementById('lbStage');
+const lbCounter=document.getElementById('lbCounter');
+let lbCur=null, lbIdx=0, lbLastFocus=null;
+function lbSlide(base,mw,alt){
+  const ws=[480]; if(mw>=800)ws.push(800); if(mw>=1280)ws.push(1280);
+  const av=ws.map(w=>`images/${base}-${w}.avif ${w}w`).join(', ');
+  const wp=ws.map(w=>`images/${base}-${w}.webp ${w}w`).join(', ');
+  return `<picture><source type="image/avif" srcset="${av}" sizes="92vw"><source type="image/webp" srcset="${wp}" sizes="92vw"><img src="images/${base}-${mw}.webp" alt="${alt}" decoding="async"></picture>`;
+}
+function lbRender(){
+  const a=lbAlbums[lbCur]; if(!a)return;
+  const [base,mw]=a.imgs[lbIdx];
+  lbStage.innerHTML=lbSlide(base,mw,a.alt);
+  lbCounter.textContent=`${lbIdx+1} / ${a.imgs.length}`;
+  const multi=a.imgs.length>1;
+  lbEl.querySelector('.lb-prev').style.display=multi?'flex':'none';
+  lbEl.querySelector('.lb-next').style.display=multi?'flex':'none';
+}
+function openLightbox(album,idx){
+  if(!lbAlbums[album])return;
+  lbLastFocus=document.activeElement;
+  lbCur=album; lbIdx=idx||0;
+  lbRender();
+  lbEl.classList.add('open');
+  document.body.style.overflow='hidden';
+  lbEl.querySelector('.lb-close').focus();
+}
+function closeLightbox(){
+  lbEl.classList.remove('open');
+  lbStage.innerHTML='';
+  document.body.style.overflow='';
+  lbCur=null;
+  if(lbLastFocus&&lbLastFocus.focus)lbLastFocus.focus();
+}
+function lbNav(dir){
+  const a=lbAlbums[lbCur]; if(!a)return;
+  lbIdx=(lbIdx+dir+a.imgs.length)%a.imgs.length;
+  lbRender();
+}
+// Close on backdrop click (not on image or controls)
+lbEl.addEventListener('click',e=>{ if(e.target===lbEl)closeLightbox(); });
+// Keyboard: Esc closes, arrows navigate, Tab is trapped inside the dialog
+document.addEventListener('keydown',e=>{
+  if(!lbEl.classList.contains('open'))return;
+  if(e.key==='Escape'){closeLightbox();}
+  else if(e.key==='ArrowLeft'){lbNav(-1);}
+  else if(e.key==='ArrowRight'){lbNav(1);}
+  else if(e.key==='Tab'){
+    const f=[...lbEl.querySelectorAll('.lb-btn')].filter(b=>b.style.display!=='none');
+    if(!f.length)return;
+    const first=f[0], last=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+  }
+});
+// Wire every gallery trigger; ignore clicks on inner links/buttons (e.g. Rezervă CTA)
+document.querySelectorAll('[data-lb-album]').forEach(el=>{
+  el.addEventListener('click',e=>{ if(e.target.closest('a,button'))return; openLightbox(el.dataset.lbAlbum,0); });
+  el.addEventListener('keydown',e=>{ if((e.key==='Enter'||e.key===' ')&&!e.target.closest('a,button')){e.preventDefault();openLightbox(el.dataset.lbAlbum,0);} });
+});
 </script>
 </body>
 </html>
