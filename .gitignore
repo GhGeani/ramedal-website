@@ -1,2 +1,6 @@
 # Claude Code project guidance — local only, not deployed
 CLAUDE.md
+
+# OS + tooling scratch
+.DS_Store
+.superpowers/
